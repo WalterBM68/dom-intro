@@ -1,10 +1,16 @@
 // get a reference to the sms or call radio buttons
+const aButtonRadio = document.querySelector('.billItemTypeWithSettings');
 
 // get refences to all the settings fields
+const aCalltotal = document.querySelector('.callTotalSettings');
+const aSmsTotal = document.querySelector('.smsTotalSettings');
+const aTotalSetting = document.querySelector('.totalSettings');
+
 
 //get a reference to the add button
-
+const theAddBtn = document.querySelector('.addBtn');
 //get a reference to the 'Update settings' button
+const theUpdate = document.querySelector('.updateSettings');
 
 // create a variables that will keep track of all the settings
 
