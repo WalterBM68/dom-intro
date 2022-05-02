@@ -1,41 +1,34 @@
-// get a reference to the textbox where the bill type is to be entered
-const theTextBox = document.querySelector(".billTypeText");
-
-//get a reference to the add button
-const myButton = document.querySelector(".addToBillBtn");
+const theBillTypeText = document.querySelector(".billTypeText");
+const addToBillBtn = document.querySelector(".addToBillBtn");
 const theCallTotal = document.querySelector(".callTotalOne");
 const theSmsTotal = document.querySelector(".smsTotalOne");
-const theTotal = document.querySelector(".totalOne");
-const textTotal = document.querySelector('.red');
+const textBillTotal = document.querySelector(".totalOne");
+const colorChangingTextBillTotal = document.querySelector('.red');
 
-//create a variable that will keep track of the total bill
-let callsTotal = 0;
-let smsTotal = 0;
-
-function textBill() {
-  let newText = theTextBox.value;
-  let theNewestText = newText.split(",");
-  for (let i = 0; i < theNewestText.length; i++) {
-    let afterTrim = theNewestText[i].trim().toLowerCase();
-    if (afterTrim  === "call") {
-      callsTotal += 2.75;
-    } else if (afterTrim  === "sms") {
-      smsTotal += 0.75;
+function calculateTextBill() {
+  let calculateTheBill = theBillTypeText.value.split(",");
+  let totalAmountOfCalls = 0; 
+  let totalAmountOfSms = 0;
+  for (let i = 0; i < calculateTheBill.length; i++) {
+    let trimmedCalculatedBill = calculateTheBill[i].trim().toLowerCase();
+    if (trimmedCalculatedBill  === "call") {
+      totalAmountOfCalls += 2.75;
+    } else if (trimmedCalculatedBill  === "sms") {
+      totalAmountOfSms += 0.75;
     }
   }
-  theCallTotal.innerHTML = callsTotal.toFixed(2);
-  theSmsTotal.innerHTML = smsTotal.toFixed(2);
-  let totalBill = callsTotal + smsTotal;
-  theTotal.innerHTML = totalBill.toFixed(2);
+  theCallTotal.innerHTML = totalAmountOfCalls.toFixed(2);
+  theSmsTotal.innerHTML = totalAmountOfSms.toFixed(2);
+  let totalAmountOfCallsAndSms = totalAmountOfCalls + totalAmountOfSms;
+  textBillTotal.innerHTML = totalAmountOfCallsAndSms.toFixed(2);
 
-  textTotal.classList.remove("warning");
-  textTotal.classList.remove("danger");
+  colorChangingTextBillTotal.classList.remove("warning");
+  colorChangingTextBillTotal.classList.remove("danger");
 
-  if (totalBill >= 30 && totalBill < 50) {
-    textTotal.classList.add("warning");
-  } else if (totalBill >= 50) {
-    textTotal.classList.add("danger");
+  if (totalAmountOfCallsAndSms >= 30 && totalAmountOfCallsAndSms < 50) {
+    colorChangingTextBillTotal.classList.add("warning");
+  } else if (totalAmountOfCallsAndSms >= 50) {
+    colorChangingTextBillTotal.classList.add("danger");
   }
 }
-//add an event listener for when the add button is pressed
-myButton.addEventListener("click", textBill);
+addToBillBtn.addEventListener("click", calculateTextBill);

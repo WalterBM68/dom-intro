@@ -1,33 +1,33 @@
 //get a reference to the add button
-const theButton = document.querySelector('.radioBillAddBtn');
+const radioBillAddBtn = document.querySelector('.radioBillAddBtn');
 const totalOfCall = document.querySelector('.callTotalTwo');
 const totalOfSms = document.querySelector('.smsTotalTwo');
-const generalTotal = document.querySelector('.totalTwo');
-const finalTotal = document.querySelector('.orange');
+const theTotalOfRadioBtn = document.querySelector('.totalTwo');
+const theTotalOfRadioBtnWithColors = document.querySelector('.orange');
 //create a variable that will keep track of the total bill
-let theTotalCall = 0;
-let theTotalSms = 0;
+let radioTotalCall = 0;
+let radioTotalSms = 0;
 
 function radioBillFunc(){ 
    let checkedRadioBtn = document.querySelector("input[name='billItemType']:checked");
-   let aRadio = checkedRadioBtn.value;
-    if (aRadio === "call") {
-        theTotalCall += 2.75;
-    }else if (aRadio === "sms") {
-        theTotalSms += 0.75;
+   let theCheckingRadionBtn = checkedRadioBtn.value;
+    if (theCheckingRadionBtn === "call") {
+        radioTotalCall += 2.75;
+    }else if (theCheckingRadionBtn === "sms") {
+        radioTotalSms += 0.75;
     }
-   totalOfCall.innerHTML = theTotalCall.toFixed(2);
-   totalOfSms.innerHTML = theTotalSms.toFixed(2);
-   let theOverrallTotal = theTotalCall + theTotalSms;
-   generalTotal.innerHTML = theOverrallTotal.toFixed(2);
+   totalOfCall.innerHTML = radioTotalCall.toFixed(2);
+   totalOfSms.innerHTML = radioTotalSms.toFixed(2);
+   let totalOfCallAndSmsInRadioBtn = radioTotalCall + radioTotalSms;
+   theTotalOfRadioBtn.innerHTML = totalOfCallAndSmsInRadioBtn.toFixed(2);
 
-   finalTotal.classList.remove("warning");
-   finalTotal.classList.remove("danger");
+   theTotalOfRadioBtnWithColors.classList.remove("warning");
+   theTotalOfRadioBtnWithColors.classList.remove("danger");
 
-  if (theOverrallTotal >= 30 && theOverrallTotal < 50 ) {
-    finalTotal.classList.add("warning");
-  } else if (theOverrallTotal >= 50) {
-    finalTotal.classList.add("danger");
+  if (totalOfCallAndSmsInRadioBtn >= 30 && totalOfCallAndSmsInRadioBtn < 50 ) {
+    theTotalOfRadioBtnWithColors.classList.add("warning");
+  } else if (totalOfCallAndSmsInRadioBtn >= 50) {
+    theTotalOfRadioBtnWithColors.classList.add("danger");
   }
 }
-theButton.addEventListener('click', radioBillFunc);
+radioBillAddBtn.addEventListener('click', radioBillFunc);

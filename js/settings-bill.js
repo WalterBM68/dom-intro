@@ -1,28 +1,63 @@
-// get a reference to the sms or call radio buttons
-const aButtonRadio = document.querySelector('.billItemTypeWithSettings');
+const billAddButton = document.querySelector('.billAddButton');
+const callTotalSettings = document.querySelector('.callTotalSettings');
+const smsTotalSettings = document.querySelector('.smsTotalSettings');
+const totalSettings = document.querySelector('.totalSettings');
+const updateSettings = document.querySelector('.updateSettings');
 
-// get refences to all the settings fields
-const aCalltotal = document.querySelector('.callTotalSettings');
-const aSmsTotal = document.querySelector('.smsTotalSettings');
-const aTotalSetting = document.querySelector('.totalSettings');
+const globalVariables = {
+    callCost: 0,
+    smsCost: 0,
+    warningLevel: 0,
+    criticalLevel: 0,
+    theFinalTotalCall: 0,
+    theFinalTotalSms: 0
+};
 
+const convertToNumber = (string) => {
+    return Number(string).toFixed(2);
+}
 
-//get a reference to the add button
-const theAddBtn = document.querySelector('.addBtn');
-//get a reference to the 'Update settings' button
-const theUpdate = document.querySelector('.updateSettings');
+function updateCost(){
+    const theCallCostValue = document.querySelector('.callCostSetting').value;
+    const theSmsCostValue = document.querySelector('.smsCostSetting').value;
+    const theWarningValue = document.querySelector('.warningLevelSetting').value;
+    const theCriticalValue = document.querySelector('.criticalLevelSetting').value;
 
-// create a variables that will keep track of all the settings
+    if(theCallCostValue)
+        globalVariables.callCost = convertToNumber(theCallCostValue);
+    if(theSmsCostValue)
+        globalVariables.smsCost = convertToNumber(theSmsCostValue);
+    if(theWarningValue)
+        globalVariables.warningLevel = convertToNumber(theWarningValue);
+    if(theCriticalValue)
+        globalVariables.criticalLevel = convertToNumber(theCriticalValue);  
+}
 
-// create a variables that will keep track of all three totals.
+const calculateTotalBill = () => Number(globalVariables.theFinalTotalCall) + Number(globalVariables.theFinalTotalSms);
 
-//add an event listener for when the 'Update settings' button is pressed
+const setTotalSettings = () => {
+    callTotalSettings.innerHTML = convertToNumber(globalVariables.theFinalTotalCall);
+    smsTotalSettings.innerHTML = convertToNumber(globalVariables.theFinalTotalSms);
+    
+    const calculatedTotalBill = calculateTotalBill();
+    
+    totalSettings.classList.remove('warning');
+    totalSettings.classList.remove('danger');
 
-//add an event listener for when the add button is pressed
+    if(calculatedTotalBill >= globalVariables.warningLevel && calculatedTotalBill < globalVariables.criticalLevel)
+        totalSettings.classList.add('warning');
+    if(calculatedTotalBill >= globalVariables.criticalLevel)
+        totalSettings.classList.add('danger');
+    totalSettings.innerHTML = 'R'+ convertToNumber(calculatedTotalBill);
+}
 
-//in the event listener get the value from the billItemTypeRadio radio buttons
-// * add the appropriate value to the call / sms total
-// * add the appropriate value to the overall total
-// * add nothing for invalid values that is not 'call' or 'sms'.
-// * display the latest total on the screen.
-// * check the value thresholds and display the total value in the right color.
+function addBill() {
+    const radioBtnValue = document.querySelector("input[name='billItemTypeWithSettings']:checked").value;
+    if (radioBtnValue === "call") 
+        globalVariables.theFinalTotalCall += Number(globalVariables.callCost);
+    if (radioBtnValue === "sms") 
+        globalVariables.theFinalTotalSms += Number(globalVariables.smsCost);
+    setTotalSettings();
+}
+billAddButton.addEventListener('click', addBill);
+updateSettings.addEventListener('click', updateCost);
