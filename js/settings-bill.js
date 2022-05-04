@@ -53,10 +53,14 @@ const setTotalSettings = () => {
 
 function addBill() {
     const radioBtnValue = document.querySelector("input[name='billItemTypeWithSettings']:checked").value;
-    if (radioBtnValue === "call") 
-        globalVariables.theFinalTotalCall += Number(globalVariables.callCost);
-    if (radioBtnValue === "sms") 
-        globalVariables.theFinalTotalSms += Number(globalVariables.smsCost);
+    const totalNumber = calculateTotalBill();
+
+    if(totalNumber < globalVariables.criticalLevel){
+        if (radioBtnValue === "call") 
+            globalVariables.theFinalTotalCall += Number(globalVariables.callCost);
+        if (radioBtnValue === "sms") 
+            globalVariables.theFinalTotalSms += Number(globalVariables.smsCost); 
+    }
     setTotalSettings();
 }
 billAddButton.addEventListener('click', addBill);

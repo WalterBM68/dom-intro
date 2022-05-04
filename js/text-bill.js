@@ -5,17 +5,15 @@ const theSmsTotal = document.querySelector(".smsTotalOne");
 const textBillTotal = document.querySelector(".totalOne");
 const colorChangingTextBillTotal = document.querySelector('.red');
 
+let totalAmountOfCalls = 0; 
+let totalAmountOfSms = 0;
+
 function calculateTextBill() {
-  let calculateTheBill = theBillTypeText.value.split(",");
-  let totalAmountOfCalls = 0; 
-  let totalAmountOfSms = 0;
-  for (let i = 0; i < calculateTheBill.length; i++) {
-    let trimmedCalculatedBill = calculateTheBill[i].trim().toLowerCase();
-    if (trimmedCalculatedBill  === "call") {
-      totalAmountOfCalls += 2.75;
-    } else if (trimmedCalculatedBill  === "sms") {
-      totalAmountOfSms += 0.75;
-    }
+  let calculateTheBill = theBillTypeText.value;
+  if (calculateTheBill === "call") {
+    totalAmountOfCalls += 2.75;
+  } else if (calculateTheBill === "sms") {
+    totalAmountOfSms += 0.75;
   }
   theCallTotal.innerHTML = totalAmountOfCalls.toFixed(2);
   theSmsTotal.innerHTML = totalAmountOfSms.toFixed(2);
