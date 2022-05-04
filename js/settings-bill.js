@@ -31,6 +31,9 @@ function updateCost(){
         globalVariables.warningLevel = convertToNumber(theWarningValue);
     if(theCriticalValue)
         globalVariables.criticalLevel = convertToNumber(theCriticalValue);  
+    
+    totalSettings.classList.remove('warning');
+    totalSettings.classList.remove('danger');
 }
 
 const calculateTotalBill = () => Number(globalVariables.theFinalTotalCall) + Number(globalVariables.theFinalTotalSms);
