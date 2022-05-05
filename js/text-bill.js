@@ -9,7 +9,7 @@ let totalAmountOfCalls = 0;
 let totalAmountOfSms = 0;
 
 function calculateTextBill() {
-  let calculateTheBill = theBillTypeText.value.toLowerCase();
+  let calculateTheBill = theBillTypeText.value;
   if (calculateTheBill === "call") {
     totalAmountOfCalls += 2.75;
   } else if (calculateTheBill === "sms") {
