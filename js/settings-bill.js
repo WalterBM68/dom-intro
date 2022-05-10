@@ -1,4 +1,53 @@
 const billAddButton = document.querySelector('.billAddButton');
+const updateSettings = document.querySelector('.updateSettings');
+
+let aBill = settingBillFunc();
+
+updateSettings.addEventListener('click', function(){
+    const theCallCostValue = document.querySelector('.callCostSetting').value;
+    const theSmsCostValue = document.querySelector('.smsCostSetting').value;
+    const theWarningValue = document.querySelector('.warningLevelSetting').value;
+    const theCriticalValue = document.querySelector('.criticalLevelSetting').value; 
+    const totalSettings = document.querySelector('.totalSettings');
+
+    aBill.setCostOfCall(Number(theCallCostValue));
+    
+    aBill.setCostOfSms(Number(theSmsCostValue));
+
+    aBill.setWarningLevel(Number(theWarningValue));
+
+    aBill.setCriticalLevel(Number(theCriticalValue));
+
+    totalSettings.classList.remove('warning');
+    totalSettings.classList.remove('danger');
+});
+
+billAddButton.addEventListener('click', function(){
+    const radioBtnValue = document.querySelector("input[name='billItemTypeWithSettings']:checked").value ;
+
+    const callTotalSettings = document.querySelector('.callTotalSettings');
+    const smsTotalSettings = document.querySelector('.smsTotalSettings');
+    const totalSettings = document.querySelector('.totalSettings');
+
+    if(radioBtnValue === 'call'){
+        aBill.makeCall();
+        callTotalSettings.innerHTML = aBill.getTotalCallCost();
+    }
+
+    if(radioBtnValue === 'sms'){
+        aBill.sendSms();
+        smsTotalSettings.innerHTML = aBill.getTotalSmsCost();
+    }
+    totalSettings.innerHTML = 'R'+aBill.getTotalCost();
+
+    totalSettings.classList.remove('warning');
+    totalSettings.classList.remove('danger');
+    totalSettings.classList.add(aBill.totalClassName());
+});
+
+
+/*
+const billAddButton = document.querySelector('.billAddButton');
 const callTotalSettings = document.querySelector('.callTotalSettings');
 const smsTotalSettings = document.querySelector('.smsTotalSettings');
 const totalSettings = document.querySelector('.totalSettings');
@@ -68,3 +117,4 @@ function addBill() {
 }
 billAddButton.addEventListener('click', addBill);
 updateSettings.addEventListener('click', updateCost);
+*/
